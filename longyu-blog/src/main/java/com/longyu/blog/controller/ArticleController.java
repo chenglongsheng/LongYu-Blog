@@ -2,6 +2,7 @@ package com.longyu.blog.controller;
 
 import com.longyu.common.domain.R;
 import com.longyu.common.domain.entity.Article;
+import com.longyu.common.domain.vo.HotArticleVo;
 import com.longyu.common.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,12 +22,12 @@ public class ArticleController {
      * @return 文章列表
      */
     @GetMapping("/articleList")
-    public R<List<Article>> articleList() {
-        return R.ok(articleService.articleList());
+    public R<List<Article>> articleList(@RequestParam Long pageNum, @RequestParam Long pageSize, @RequestParam Long categoryId) {
+        return R.ok(articleService.articleList(pageNum, pageSize, categoryId));
     }
 
     @GetMapping("/hotArticleList")
-    public R<List<Article>> hotArticleList() {
+    public R<List<HotArticleVo>> hotArticleList() {
         return R.ok(articleService.hotArticleList());
     }
 

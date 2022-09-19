@@ -4,12 +4,16 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.longyu.common.constont.SystemConstant;
 import com.longyu.common.domain.entity.Article;
+import com.longyu.common.domain.vo.HotArticleVo;
 import com.longyu.common.service.ArticleService;
 import com.longyu.common.mapper.ArticleMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author CLS
@@ -20,17 +24,20 @@ import java.util.List;
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
 
     @Override
-    public List<Article> articleList() {
-        return super.list();
+    public List<Article> articleList(Long pageNum, Long pageSize, Long categoryId) {
+        Page<Article> page = new Page<>(pageNum, pageSize);
+        LambdaQueryWrapper<Article> queryWrapper = Wrappers.lambdaQuery(Article.class).eq(Article::getCategoryId, categoryId);
+        return super.page(page, queryWrapper).getRecords();
     }
 
     @Override
-    public List<Article> hotArticleList() {
+    public List<HotArticleVo> hotArticleList() {
         LambdaQueryWrapper<Article> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Article::getStatus, 0);
+        queryWrapper.eq(Article::getStatus, SystemConstant.ARTICLE_STATUS_PUBLISHED);
         queryWrapper.orderByDesc(Article::getViewCount);
-        Page<Article> page = new Page<>(1, 10);
-        return page(page, queryWrapper).getRecords();
+        Page<Article> page = new Page<>(SystemConstant.PAGE_CURRENT, SystemConstant.PAGE_SIZE);
+        List<Article> records = page(page, queryWrapper).getRecords();
+        return records.stream().map(item -> new HotArticleVo(item.getId(), item.getTitle(), item.getViewCount())).collect(Collectors.toList());
     }
 
     @Override

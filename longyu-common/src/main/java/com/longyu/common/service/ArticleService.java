@@ -2,6 +2,7 @@ package com.longyu.common.service;
 
 import com.longyu.common.domain.entity.Article;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.longyu.common.domain.vo.HotArticleVo;
 
 import java.util.List;
 
@@ -12,9 +13,9 @@ import java.util.List;
  */
 public interface ArticleService extends IService<Article> {
 
-    List<Article> articleList();
+    List<Article> articleList(Long pageNum, Long pageSize, Long categoryId);
 
-    List<Article> hotArticleList();
+    List<HotArticleVo> hotArticleList();
 
     Article getArticleById(Long articleId);
 
