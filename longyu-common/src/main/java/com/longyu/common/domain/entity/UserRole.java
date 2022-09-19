@@ -20,13 +20,11 @@ public class UserRole implements Serializable {
     /**
      * 用户ID
      */
-    @TableId
     private Long userId;
 
     /**
      * 角色ID
      */
-    @TableId
     private Long roleId;
 
     @TableField(exist = false)

@@ -20,13 +20,11 @@ public class ArticleTag implements Serializable {
     /**
      * 文章id
      */
-    @TableId(type = IdType.AUTO)
     private Long articleId;
 
     /**
      * 标签id
      */
-    @TableId
     private Long tagId;
 
     @TableField(exist = false)

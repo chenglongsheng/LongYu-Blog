@@ -20,13 +20,11 @@ public class RoleMenu implements Serializable {
     /**
      * 角色ID
      */
-    @TableId
     private Long roleId;
 
     /**
      * 菜单ID
      */
-    @TableId
     private Long menuId;
 
     @TableField(exist = false)
