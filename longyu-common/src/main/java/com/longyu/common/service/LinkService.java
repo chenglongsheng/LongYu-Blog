@@ -2,6 +2,9 @@ package com.longyu.common.service;
 
 import com.longyu.common.domain.entity.Link;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.longyu.common.domain.vo.LinkListVo;
+
+import java.util.List;
 
 /**
  * @author CLS
@@ -10,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface LinkService extends IService<Link> {
 
+    List<LinkListVo> getAllLink();
 }
