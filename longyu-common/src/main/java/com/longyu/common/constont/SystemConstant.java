@@ -17,5 +17,13 @@ public class SystemConstant {
      * 分页-每页显示条数
      */
     public static final long PAGE_SIZE = 10;
+    /**
+     * 正常
+     */
+    public static final int STATUS_NORMAL = 0;
+    /**
+     * 禁用
+     */
+    public static final int STATUS_DISABLE = 1;
 
 }
