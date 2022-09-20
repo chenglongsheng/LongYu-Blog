@@ -6,9 +6,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.longyu.common.constont.SystemConstant;
 import com.longyu.common.domain.entity.Article;
+import com.longyu.common.domain.vo.ArticleListVo;
 import com.longyu.common.domain.vo.HotArticleVo;
+import com.longyu.common.domain.vo.PageVo;
 import com.longyu.common.service.ArticleService;
 import com.longyu.common.mapper.ArticleMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,10 +27,18 @@ import java.util.stream.Collectors;
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
 
     @Override
-    public List<Article> articleList(Long pageNum, Long pageSize, Long categoryId) {
+    public PageVo<ArticleListVo> articleList(Long pageNum, Long pageSize, Long categoryId) {
         Page<Article> page = new Page<>(pageNum, pageSize);
-        LambdaQueryWrapper<Article> queryWrapper = Wrappers.lambdaQuery(Article.class).eq(Article::getCategoryId, categoryId);
-        return super.page(page, queryWrapper).getRecords();
+        LambdaQueryWrapper<Article> queryWrapper = Wrappers.lambdaQuery(Article.class)
+                .eq(categoryId != 0, Article::getCategoryId, categoryId)
+                .eq(Article::getStatus, SystemConstant.STATUS_NORMAL);
+        Page<Article> articlePage = super.page(page, queryWrapper);
+        List<ArticleListVo> articleListVos = articlePage.getRecords().stream().map(item -> {
+            ArticleListVo articleListVo = new ArticleListVo();
+            BeanUtils.copyProperties(item, articleListVo);
+            return articleListVo;
+        }).collect(Collectors.toList());
+        return new PageVo<>(articleListVos, articlePage.getTotal());
     }
 
     @Override

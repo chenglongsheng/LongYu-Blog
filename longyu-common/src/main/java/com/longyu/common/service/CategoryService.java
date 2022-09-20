@@ -2,6 +2,9 @@ package com.longyu.common.service;
 
 import com.longyu.common.domain.entity.Category;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.longyu.common.domain.vo.CategoryVo;
+
+import java.util.List;
 
 /**
  * @author CLS
@@ -10,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface CategoryService extends IService<Category> {
 
+    List<CategoryVo> getCategoryList();
 }
