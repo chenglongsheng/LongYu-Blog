@@ -10,6 +10,7 @@ import java.io.Serializable;
  * @param <T>
  */
 public class R<T> implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Integer code;
     private String msg;
     private T data;
