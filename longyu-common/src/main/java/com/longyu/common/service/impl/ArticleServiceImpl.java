@@ -6,15 +6,18 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.longyu.common.constont.SystemConstant;
 import com.longyu.common.domain.entity.Article;
+import com.longyu.common.domain.entity.Category;
+import com.longyu.common.domain.vo.ArticleDetailVo;
 import com.longyu.common.domain.vo.ArticleListVo;
 import com.longyu.common.domain.vo.HotArticleVo;
 import com.longyu.common.domain.vo.PageVo;
 import com.longyu.common.service.ArticleService;
 import com.longyu.common.mapper.ArticleMapper;
+import com.longyu.common.service.CategoryService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +28,9 @@ import java.util.stream.Collectors;
  */
 @Service
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
+
+    @Autowired
+    private CategoryService categoryService;
 
     @Override
     public PageVo<ArticleListVo> articleList(Long pageNum, Long pageSize, Long categoryId) {
@@ -52,8 +58,16 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
-    public Article getArticleById(Long articleId) {
-        return super.getById(articleId);
+    public ArticleDetailVo getArticleById(Long articleId) {
+        Article article = super.getById(articleId);
+        ArticleDetailVo articleDetailVo = new ArticleDetailVo();
+        BeanUtils.copyProperties(article, articleDetailVo);
+        Long categoryId = article.getCategoryId();
+        if (categoryId != null) {
+            Category category = categoryService.getById(categoryId);
+            articleDetailVo.setCategoryName(category.getName());
+        }
+        return articleDetailVo;
     }
 
     @Override

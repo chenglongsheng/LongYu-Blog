@@ -3,6 +3,7 @@ package com.longyu.common.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.longyu.common.domain.entity.Article;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.longyu.common.domain.vo.ArticleDetailVo;
 import com.longyu.common.domain.vo.ArticleListVo;
 import com.longyu.common.domain.vo.HotArticleVo;
 import com.longyu.common.domain.vo.PageVo;
@@ -20,7 +21,7 @@ public interface ArticleService extends IService<Article> {
 
     List<HotArticleVo> hotArticleList();
 
-    Article getArticleById(Long articleId);
+    ArticleDetailVo getArticleById(Long articleId);
 
     void updateViewCount(Long articleId);
 }

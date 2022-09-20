@@ -1,7 +1,7 @@
 package com.longyu.blog.controller;
 
 import com.longyu.common.domain.R;
-import com.longyu.common.domain.entity.Article;
+import com.longyu.common.domain.vo.ArticleDetailVo;
 import com.longyu.common.domain.vo.ArticleListVo;
 import com.longyu.common.domain.vo.HotArticleVo;
 import com.longyu.common.domain.vo.PageVo;
@@ -33,8 +33,8 @@ public class ArticleController {
         return R.ok(articleService.hotArticleList());
     }
 
-    @GetMapping("/getArticle/{articleId}")
-    public R<Article> getArticleById(@PathVariable Long articleId) {
+    @GetMapping("/{articleId}")
+    public R<ArticleDetailVo> getArticleById(@PathVariable Long articleId) {
         return R.ok(articleService.getArticleById(articleId));
     }
 
