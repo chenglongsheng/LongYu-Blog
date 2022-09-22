@@ -1,6 +1,9 @@
 package com.longyu.common.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.longyu.common.constont.SystemConstant;
 import com.longyu.common.domain.entity.Link;
 import com.longyu.common.domain.vo.LinkListVo;
 import com.longyu.common.service.LinkService;
@@ -21,7 +24,8 @@ public class LinkServiceImpl extends ServiceImpl<LinkMapper, Link> implements Li
 
     @Override
     public List<LinkListVo> getAllLink() {
-        return super.list().stream().map(link -> {
+        LambdaQueryWrapper<Link> wrapper = Wrappers.lambdaQuery(Link.class).eq(Link::getStatus, SystemConstant.STATUS_NORMAL);
+        return super.list(wrapper).stream().map(link -> {
             LinkListVo linkListVo = new LinkListVo();
             BeanUtils.copyProperties(link, linkListVo);
             return linkListVo;
