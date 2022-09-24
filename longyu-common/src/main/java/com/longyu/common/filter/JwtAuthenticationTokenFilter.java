@@ -24,6 +24,9 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Autowired
     private RedisCache redisCache;
 
+    @Autowired
+    private JwtUtil jwtUtil;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         // 获取token
@@ -35,7 +38,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         // 解析token获取userId
         String subject;
         try {
-            Claims claims = JwtUtil.parseJWT(token);
+            Claims claims = jwtUtil.parseJWT(token);
             subject = claims.getSubject();
         } catch (Exception e) {
             throw new RuntimeException("非法token");

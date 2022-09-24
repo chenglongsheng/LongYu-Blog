@@ -26,3 +26,10 @@ mybatis-plus:
       logic-delete-value: 1
       logic-not-delete-value: 0
       id-type: auto
+
+# 秘钥明文
+myapp:
+  jwt:
+    key: clswudi
+    issuer: chenglongsheng
+    expire: 864000000000000

@@ -24,11 +24,13 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     private RedisCache redisCache;
 
+    @Autowired
+    private JwtUtil jwtUtil;
+
     @Override
     public LoginUserInfo login(User user) {
         // 使用AuthenticationManager authenticationManager验证用户名密码
-        UsernamePasswordAuthenticationToken token =
-                new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
         Authentication authenticate = authenticationManager.authenticate(token);
 
         // 认证不通过提示
@@ -41,7 +43,7 @@ public class LoginServiceImpl implements LoginService {
         User userUser = authenticatedUser.getUser();
         String userId = userUser.getId().toString();
         redisCache.set("login:" + userId, authenticatedUser);
-        String jwt = JwtUtil.createJWT(userId);
+        String jwt = jwtUtil.createJWT(userId);
         UserInfo userInfo = new UserInfo();
         BeanUtils.copyProperties(userUser, userInfo);
 
