@@ -50,6 +50,10 @@ public class R<T> implements Serializable {
         return new R<>(code, data);
     }
 
+    public static <T> R<T> ok(Integer code, String msg) {
+        return new R<>(code, msg);
+    }
+
     public static <T> R<T> ok(T data) {
         return new R<>(data);
     }
