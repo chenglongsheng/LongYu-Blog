@@ -5,4 +5,6 @@ import com.longyu.common.domain.login.LoginUserInfo;
 
 public interface LoginService {
     LoginUserInfo login(User user);
+
+    Object logout();
 }

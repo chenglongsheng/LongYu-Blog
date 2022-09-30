@@ -1,5 +1,6 @@
 package com.longyu.common.service.impl;
 
+import com.longyu.common.domain.R;
 import com.longyu.common.domain.entity.User;
 import com.longyu.common.domain.login.LoginUser;
 import com.longyu.common.domain.login.LoginUserInfo;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -49,6 +51,16 @@ public class LoginServiceImpl implements LoginService {
 
         // 返回jwt给前端
         return new LoginUserInfo(jwt, userInfo);
+    }
+
+    @Override
+    public Object logout() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        System.out.println(loginUser);
+        String userId = loginUser.getUser().getId().toString();
+        redisCache.delete("login:" + userId);
+        return R.ok();
     }
 
 }

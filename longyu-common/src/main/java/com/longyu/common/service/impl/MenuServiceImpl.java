@@ -6,15 +6,20 @@ import com.longyu.common.service.MenuService;
 import com.longyu.common.mapper.MenuMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author CLS
  * @description 针对表【sys_menu(菜单权限表)】的数据库操作Service实现
  * @createDate 2022-09-19 13:13:24
  */
 @Service
-public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu>
-        implements MenuService {
+public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements MenuService {
 
+    @Override
+    public List<String> getPermsByUserId(Long id) {
+        return super.baseMapper.getPermsByUserId(id);
+    }
 }
 
 

@@ -20,4 +20,9 @@ public class SysLoginController {
         return R.ok(loginService.login(user));
     }
 
+    @PostMapping("/logout")
+    public R logout() {
+        return R.ok(loginService.logout());
+    }
+
 }
