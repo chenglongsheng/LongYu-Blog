@@ -6,7 +6,7 @@
                 
             </h1>
             <!-- 登录注册 -->
-            <div v-show="!err2005" class="">
+            <div v-show="true" class="">
                 <div v-if="login==1" class="loginBox">
                     <div class="lr-title">
                         <h1>登录</h1>
@@ -145,12 +145,12 @@ import {setToken} from '../utils/auth.js'
                 var that = this;
                 that.login = that.$route.query.login==undefined?1:parseInt(that.$route.query.login);//获取传参的login
                 that.urlstate = that.$route.query.urlstate==undefined?0:that.$route.query.urlstate;//获取传参的usrlstate状态码
-                // console.log(that.login,that.urlstate);
+                console.log(that.login,that.urlstate);
 
             },
             loginEnterFun: function(e){
                 var keyCode = window.event? e.keyCode:e.which;
-                // console.log('回车登录',keyCode,e);
+                console.log('回车登录',keyCode,e);
                 if(keyCode == 13 ){
                     this.gotoHome();
                 }
@@ -357,6 +357,6 @@ import {setToken} from '../utils/auth.js'
     cursor: pointer;
 }
 .registerSuc .sucContent  .el-icon-close{
-    fong-size: 13px;
+    font-size: 13px;
 }
 </style>
