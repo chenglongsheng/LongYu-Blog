@@ -6,16 +6,17 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.longyu.common.constont.SystemConstant;
 import com.longyu.common.domain.entity.Comment;
-import com.longyu.common.domain.entity.User;
 import com.longyu.common.domain.vo.CommentListVo;
 import com.longyu.common.domain.vo.PageVo;
+import com.longyu.common.enums.AppHttpCodeEnum;
+import com.longyu.common.exception.SystemException;
 import com.longyu.common.service.CommentService;
 import com.longyu.common.mapper.CommentMapper;
 import com.longyu.common.service.UserService;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -54,6 +55,14 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
             return vo;
         }).collect(Collectors.toList());
         return new PageVo<>(result, page.getTotal());
+    }
+
+    @Override
+    public void comment(Comment comment) {
+        if (!StringUtils.hasText(comment.getContent())) {
+            throw new SystemException(AppHttpCodeEnum.CONTENT_NOT_NULL);
+        }
+        super.save(comment);
     }
 
     private List<CommentListVo> getChildren(Long id) {

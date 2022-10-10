@@ -6,10 +6,7 @@ import com.longyu.common.domain.vo.CommentListVo;
 import com.longyu.common.domain.vo.PageVo;
 import com.longyu.common.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,6 +16,12 @@ public class CommentController {
 
     @Autowired
     private CommentService commentService;
+
+    @PostMapping("")
+    public R comment(@RequestBody Comment comment) {
+        commentService.comment(comment);
+        return R.ok();
+    }
 
     @GetMapping("/commentList")
     public R<PageVo<CommentListVo>> commentList(@RequestParam Long pageNum, @RequestParam Long pageSize, @RequestParam Long articleId) {

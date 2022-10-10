@@ -5,8 +5,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.longyu.common.domain.vo.CommentListVo;
 import com.longyu.common.domain.vo.PageVo;
 
-import java.util.List;
-
 /**
  * @author CLS
  * @description 针对表【rl_comment(评论表)】的数据库操作Service
@@ -15,4 +13,6 @@ import java.util.List;
 public interface CommentService extends IService<Comment> {
 
     PageVo<CommentListVo> commentList(Long pageNum, Long pageSize, Long articleId);
+
+    void comment(Comment commentVo);
 }
