@@ -2,6 +2,8 @@ package com.longyu.common.service;
 
 import com.longyu.common.domain.entity.Comment;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.longyu.common.domain.vo.CommentListVo;
+import com.longyu.common.domain.vo.PageVo;
 
 import java.util.List;
 
@@ -12,5 +14,5 @@ import java.util.List;
  */
 public interface CommentService extends IService<Comment> {
 
-    List<Comment> commentList(Long pageNum, Long pageSize, Long articleId);
+    PageVo<CommentListVo> commentList(Long pageNum, Long pageSize, Long articleId);
 }

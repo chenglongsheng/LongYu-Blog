@@ -55,6 +55,11 @@ public class Comment implements Serializable {
     private Long toCommentId;
 
     /**
+     * 评论数
+     */
+    private Integer commonCount;
+
+    /**
      *
      */
     private Long createBy;
