@@ -33,13 +33,13 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     private UserService userService;
 
     @Override
-    public PageVo<CommentListVo> commentList(Long pageNum, Long pageSize, Long articleId) {
+    public PageVo<CommentListVo> commentList(String commentType, Long pageNum, Long pageSize, Long articleId) {
 
         Page<Comment> commentPage = new Page<>(pageNum, pageSize);
 
         LambdaQueryWrapper<Comment> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Comment::getArticleId, articleId)
-                .eq(Comment::getType, SystemConstant.STATUS_NORMAL)
+        queryWrapper.eq(articleId != null, Comment::getArticleId, articleId)
+                .eq(Comment::getType, commentType)
                 .eq(Comment::getRootId, -1)
                 .orderByDesc(Comment::getCommonCount, Comment::getCreateTime);
 

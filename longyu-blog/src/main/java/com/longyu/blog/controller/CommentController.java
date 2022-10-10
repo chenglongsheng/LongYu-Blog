@@ -1,5 +1,6 @@
 package com.longyu.blog.controller;
 
+import com.longyu.common.constont.SystemConstant;
 import com.longyu.common.domain.R;
 import com.longyu.common.domain.entity.Comment;
 import com.longyu.common.domain.vo.CommentListVo;
@@ -25,12 +26,12 @@ public class CommentController {
 
     @GetMapping("/commentList")
     public R<PageVo<CommentListVo>> commentList(@RequestParam Long pageNum, @RequestParam Long pageSize, @RequestParam Long articleId) {
-        return R.ok(commentService.commentList(pageNum, pageSize, articleId));
+        return R.ok(commentService.commentList(SystemConstant.ARTICLE_COMMENT, pageNum, pageSize, articleId));
     }
 
     @GetMapping("/linkCommentList")
-    public R<List<Comment>> getLinkComment(@RequestParam Long pageNum, @RequestParam Long pageSize, @RequestParam Long articleId) {
-        return R.ok();
+    public R<PageVo<CommentListVo>> getLinkComment(@RequestParam Long pageNum, @RequestParam Long pageSize) {
+        return R.ok(commentService.commentList(SystemConstant.LINK_COMMENT, pageNum, pageSize, null));
     }
 
 }

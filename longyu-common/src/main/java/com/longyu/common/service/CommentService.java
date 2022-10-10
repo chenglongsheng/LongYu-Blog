@@ -12,7 +12,7 @@ import com.longyu.common.domain.vo.PageVo;
  */
 public interface CommentService extends IService<Comment> {
 
-    PageVo<CommentListVo> commentList(Long pageNum, Long pageSize, Long articleId);
+    PageVo<CommentListVo> commentList(String commentType, Long pageNum, Long pageSize, Long articleId);
 
     void comment(Comment commentVo);
 }
