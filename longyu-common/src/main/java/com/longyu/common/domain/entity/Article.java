@@ -95,4 +95,12 @@ public class Article implements Serializable {
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
+
+    public Article() {
+    }
+
+    public Article(Long id, Long viewCount) {
+        this.id = id;
+        this.viewCount = viewCount;
+    }
 }

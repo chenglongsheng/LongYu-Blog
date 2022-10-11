@@ -14,6 +14,8 @@ import com.longyu.common.domain.vo.PageVo;
 import com.longyu.common.service.ArticleService;
 import com.longyu.common.mapper.ArticleMapper;
 import com.longyu.common.service.CategoryService;
+import com.longyu.common.util.RedisCache;
+import io.swagger.models.auth.In;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private RedisCache redisCache;
 
     @Override
     public PageVo<ArticleListVo> articleList(Long pageNum, Long pageSize, Long categoryId) {
@@ -60,8 +65,12 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Override
     public ArticleDetailVo getArticleById(Long articleId) {
         Article article = super.getById(articleId);
+
+        Integer value = redisCache.getMapValue("article:viewCount", articleId.toString());
+
         ArticleDetailVo articleDetailVo = new ArticleDetailVo();
         BeanUtils.copyProperties(article, articleDetailVo);
+        articleDetailVo.setViewCount(Long.valueOf(value));
         Long categoryId = article.getCategoryId();
         if (categoryId != null) {
             Category category = categoryService.getById(categoryId);
@@ -72,9 +81,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Override
     public void updateViewCount(Long articleId) {
-        Article article = new Article();
-        article.setId(articleId);
-        super.updateById(article);
+        redisCache.incrementMapValue("article:viewCount", articleId.toString(), 1);
     }
 }
 

@@ -48,6 +48,6 @@ public class ArticleDetailVo implements Serializable {
     /**
      * 访问量
      */
-    private Integer viewCount;
+    private Long viewCount;
 
 }
