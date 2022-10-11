@@ -2,7 +2,7 @@ package com.longyu.common.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.longyu.common.domain.entity.User;
-import com.longyu.common.domain.vo.UserVo;
+import com.longyu.common.domain.login.UserInfo;
 import com.longyu.common.service.UserService;
 import com.longyu.common.mapper.UserMapper;
 import com.longyu.common.util.SecurityUtil;
@@ -18,12 +18,19 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     @Override
-    public UserVo userInfo() {
+    public UserInfo userInfo() {
         Long userId = SecurityUtil.getUserId();
         User user = super.getById(userId);
-        UserVo userVo = new UserVo();
+        UserInfo userVo = new UserInfo();
         BeanUtils.copyProperties(user, userVo);
         return userVo;
+    }
+
+    @Override
+    public Boolean updateUserInfo(UserInfo userInfo) {
+        User user = new User();
+        BeanUtils.copyProperties(userInfo, user);
+        return super.updateById(user);
     }
 
 }

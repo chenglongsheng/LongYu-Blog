@@ -2,7 +2,7 @@ package com.longyu.common.service;
 
 import com.longyu.common.domain.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.longyu.common.domain.vo.UserVo;
+import com.longyu.common.domain.login.UserInfo;
 
 /**
  * @author CLS
@@ -11,5 +11,7 @@ import com.longyu.common.domain.vo.UserVo;
  */
 public interface UserService extends IService<User> {
 
-    UserVo userInfo();
+    UserInfo userInfo();
+
+    Boolean updateUserInfo(UserInfo userInfo);
 }

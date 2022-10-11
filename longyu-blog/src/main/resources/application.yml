@@ -33,3 +33,10 @@ myapp:
     key: clswudi
     issuer: chenglongsheng
     expire: 864000000000000
+
+# oss
+oss:
+  endpoint: oss-cn-hangzhou.aliyuncs.com
+  accessKeyId: LTAI5tCHGRcyGoDaMxgz9G8B
+  accessKeySecret: 7R2cYJbi2PTRxc7JD1Gvlvz8qjoB0i
+  bucketName: blog-1011
