@@ -1,5 +1,6 @@
 package com.longyu.blog.controller;
 
+import com.longyu.common.annotation.SystemLog;
 import com.longyu.common.domain.R;
 import com.longyu.common.domain.entity.User;
 import com.longyu.common.domain.login.UserInfo;
@@ -22,6 +23,7 @@ public class UserController {
         return R.ok(user);
     }
 
+    @SystemLog(businessName = "更新用户信息")
     @PutMapping("/userInfo")
     public R<Boolean> updateUserInfo(@RequestBody UserInfo userInfo) {
         Boolean b = userService.updateUserInfo(userInfo);
