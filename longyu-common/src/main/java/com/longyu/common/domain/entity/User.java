@@ -8,7 +8,13 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.longyu.common.enums.AppHttpCodeEnum;
 import lombok.Data;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  * 用户表
@@ -52,6 +58,7 @@ public class User implements Serializable {
     /**
      * 邮箱
      */
+    @Email
     private String email;
 
     /**

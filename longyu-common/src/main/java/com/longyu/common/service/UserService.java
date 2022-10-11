@@ -14,4 +14,6 @@ public interface UserService extends IService<User> {
     UserInfo userInfo();
 
     Boolean updateUserInfo(UserInfo userInfo);
+
+    Boolean register(User user);
 }

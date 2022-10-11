@@ -72,6 +72,12 @@
             <version>1.4</version>
         </dependency>
 
+        <!--jsr303校验-->
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
+
         <!--AOP-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
