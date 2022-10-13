@@ -2,9 +2,7 @@ package com.longyu.common.domain.login;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.longyu.common.domain.entity.User;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +13,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Data
-@NoArgsConstructor
 public class LoginUser implements UserDetails {
 
     private User user;
@@ -24,6 +21,9 @@ public class LoginUser implements UserDetails {
 
     @JSONField(serialize = false)// 不进行序列化存在redis
     private List<GrantedAuthority> authorities;
+
+    public LoginUser() {
+    }
 
     public LoginUser(User user, List<String> permission) {
         this.user = user;
