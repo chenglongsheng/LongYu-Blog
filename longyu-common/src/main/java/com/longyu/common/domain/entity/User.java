@@ -103,4 +103,30 @@ public class User implements Serializable {
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
+
+    public User() {
+    }
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public User(Long id, String username, String nickName, String password, Integer type, Integer status, String email, Integer phoneNumber, Integer sex, String avatar, Long createBy, Date createTime, Long updateBy, Date updateTime, Integer delFlag) {
+        this.id = id;
+        this.username = username;
+        this.nickName = nickName;
+        this.password = password;
+        this.type = type;
+        this.status = status;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.sex = sex;
+        this.avatar = avatar;
+        this.createBy = createBy;
+        this.createTime = createTime;
+        this.updateBy = updateBy;
+        this.updateTime = updateTime;
+        this.delFlag = delFlag;
+    }
 }

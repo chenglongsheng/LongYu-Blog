@@ -1,6 +1,6 @@
-package com.longyu.common.config;
+package com.longyu.admin.config;
 
-import com.longyu.common.filter.JwtAuthenticationTokenFilter;
+import com.longyu.admin.filter.JwtAuthenticationTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -45,13 +45,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/login").anonymous()//只允许匿名访问
+                .antMatchers("/user/login").anonymous()//只允许匿名访问
                 //注销接口需要认证才能访问
-                .antMatchers("/logout").authenticated()
-                // 用户信息登录访问
-                .antMatchers("/user/userInfo").authenticated()
-                // 评论需要登录
-                .antMatchers("/comment").authenticated()
+                .antMatchers("/user/logout").authenticated()
                 .anyRequest().permitAll();
         http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
         // 处理异常

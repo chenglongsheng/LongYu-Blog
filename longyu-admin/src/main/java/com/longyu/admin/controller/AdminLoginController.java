@@ -9,16 +9,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
-public class LoginController {
+public class AdminLoginController {
 
     @Autowired
     private LoginService loginService;
 
     @PostMapping("/user/login")
     public R login(@RequestBody User user) {
-        LoginUserInfo login = loginService.login(user);
+        String username = user.getUsername();
+        String password = user.getPassword();
+        Map<String, String> login = loginService.login(username, password);
         return R.ok(login);
+    }
+
+    @PostMapping("/user/logout")
+    public R logout() {
+        return R.ok(loginService.logout("/user/logout"));
     }
 
 }

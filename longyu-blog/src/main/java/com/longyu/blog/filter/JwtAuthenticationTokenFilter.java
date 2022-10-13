@@ -1,5 +1,6 @@
-package com.longyu.common.filter;
+package com.longyu.blog.filter;
 
+import com.longyu.common.constont.SystemConstant;
 import com.longyu.common.domain.login.LoginUser;
 import com.longyu.common.util.JwtUtil;
 import com.longyu.common.util.RedisCache;
@@ -44,7 +45,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             throw new RuntimeException("非法token");
         }
         // 从redis获取用户信息
-        LoginUser user = redisCache.get("login:" + subject);
+        LoginUser user = redisCache.get(SystemConstant.BLOG_LOGIN + subject);
         // 把用户信息存入SecurityContextHolder
         if (Objects.isNull(user)) {
             throw new RuntimeException("用户未登录");

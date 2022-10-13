@@ -37,5 +37,13 @@ public class SystemConstant {
      * 允许评论
      */
     public static final Integer IS_COMMENT = 1;
+    /**
+     * 后台登录
+     */
+    public static final String ADMIN_LOGIN = "admin_login:";
+    /**
+     * 前台登录
+     */
+    public static final String BLOG_LOGIN = "blog_login:";
 
 }
