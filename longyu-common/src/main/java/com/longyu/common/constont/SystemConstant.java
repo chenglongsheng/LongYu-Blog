@@ -45,5 +45,12 @@ public class SystemConstant {
      * 前台登录
      */
     public static final String BLOG_LOGIN = "blog_login:";
-
+    /**
+     * 菜单类型：菜单
+     */
+    public static final String MENU = "C";
+    /**
+     * 菜单类型：按钮
+     */
+    public static final String BUTTON = "F";
 }

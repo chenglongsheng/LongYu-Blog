@@ -13,4 +13,6 @@ import java.util.List;
 public interface MenuService extends IService<Menu> {
 
     List<String> getPermsByUserId(Long id);
+
+    List<String> getPermissions(Long userId);
 }

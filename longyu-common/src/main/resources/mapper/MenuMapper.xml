@@ -34,13 +34,16 @@
         update_time,del_flag,remark
     </sql>
     <select id="getPermsByUserId" resultType="java.lang.String">
-        SELECT DISTINCT m.`perms`
-        FROM sys_user_role ur
-                 LEFT JOIN sys_role r ON ur.role_id = r.id
-                 LEFT JOIN sys_role_menu rm ON ur.role_id = rm.role_id
-                 LEFT JOIN sys_menu m ON m.id = rm.`menu_id`
-        WHERE user_id = #{userId}
-          AND r.`status` = 0
-          AND m.`status` = 0
+        SELECT DISTINCT sys_menu.perms
+        FROM sys_menu
+                 LEFT JOIN sys_role_menu ON sys_menu.id = sys_role_menu.menu_id
+                 LEFT JOIN sys_role ON sys_role.id = sys_role_menu.role_id
+                 LEFT JOIN sys_user_role ON sys_user_role.role_id = sys_role.id
+        WHERE sys_user_role.user_id = #{id}
+          AND sys_menu.del_flag = 0
+          AND sys_menu.`status` = 0
+          AND sys_menu.menu_type IN ('C', 'F')
+          AND sys_role.del_flag = 0
+          AND sys_role.`status` = 0
     </select>
 </mapper>
