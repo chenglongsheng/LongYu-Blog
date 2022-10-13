@@ -50,6 +50,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/logout").authenticated()
                 // 用户信息登录访问
                 .antMatchers("/user/userInfo").authenticated()
+                // 评论需要登录
+                .antMatchers("/comment").authenticated()
                 .anyRequest().permitAll();
         http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
         // 处理异常

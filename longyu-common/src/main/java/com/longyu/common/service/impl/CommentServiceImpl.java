@@ -5,11 +5,13 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.longyu.common.constont.SystemConstant;
+import com.longyu.common.domain.entity.Article;
 import com.longyu.common.domain.entity.Comment;
 import com.longyu.common.domain.vo.CommentListVo;
 import com.longyu.common.domain.vo.PageVo;
 import com.longyu.common.enums.AppHttpCodeEnum;
 import com.longyu.common.exception.SystemException;
+import com.longyu.common.service.ArticleService;
 import com.longyu.common.service.CommentService;
 import com.longyu.common.mapper.CommentMapper;
 import com.longyu.common.service.UserService;
@@ -31,6 +33,9 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ArticleService articleService;
 
     @Override
     public PageVo<CommentListVo> commentList(String commentType, Long pageNum, Long pageSize, Long articleId) {
@@ -61,6 +66,14 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     public void comment(Comment comment) {
         if (!StringUtils.hasText(comment.getContent())) {
             throw new SystemException(AppHttpCodeEnum.CONTENT_NOT_NULL);
+        }
+        // 查询文章是否开启评论
+        Article article = articleService.getById(comment.getArticleId());
+        if (article == null) {
+            throw new SystemException(AppHttpCodeEnum.SYSTEM_ERROR);
+        }
+        if (!article.getIsComment().equals(SystemConstant.IS_COMMENT)) {
+            throw new SystemException(AppHttpCodeEnum.CAN_NOT_COMMENT);
         }
         super.save(comment);
     }

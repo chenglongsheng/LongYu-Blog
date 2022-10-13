@@ -33,5 +33,9 @@ public class SystemConstant {
      * 评论类型为：友联评论
      */
     public static final String LINK_COMMENT = "1";
+    /**
+     * 允许评论
+     */
+    public static final Integer IS_COMMENT = 1;
 
 }
