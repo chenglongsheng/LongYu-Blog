@@ -2,6 +2,7 @@ package com.longyu.common.mapper;
 
 import com.longyu.common.domain.entity.Menu;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.longyu.common.domain.vo.MenuVo;
 
 import java.util.List;
 
@@ -14,6 +15,8 @@ import java.util.List;
 public interface MenuMapper extends BaseMapper<Menu> {
 
     List<String> getPermsByUserId(Long id);
+
+    List<Menu> getRoutersByUserId(Long userId);
 }
 
 

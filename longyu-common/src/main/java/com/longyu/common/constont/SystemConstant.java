@@ -46,6 +46,10 @@ public class SystemConstant {
      */
     public static final String BLOG_LOGIN = "blog_login:";
     /**
+     * 菜单类型：目录
+     */
+    public static final String CATEGORY = "M";
+    /**
      * 菜单类型：菜单
      */
     public static final String MENU = "C";

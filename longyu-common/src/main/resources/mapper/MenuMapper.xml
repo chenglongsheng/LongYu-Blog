@@ -46,4 +46,17 @@
           AND sys_role.del_flag = 0
           AND sys_role.`status` = 0
     </select>
+    <select id="getRoutersByUserId" resultType="com.longyu.common.domain.entity.Menu">
+        SELECT DISTINCT *
+        FROM sys_menu
+                 LEFT JOIN sys_role_menu ON sys_menu.id = sys_role_menu.menu_id
+                 LEFT JOIN sys_role ON sys_role.id = sys_role_menu.role_id
+                 LEFT JOIN sys_user_role ON sys_user_role.role_id = sys_role.id
+        WHERE sys_user_role.user_id = #{id}
+          AND sys_menu.del_flag = 0
+          AND sys_menu.`status` = 0
+          AND sys_menu.menu_type IN ('C', 'M')
+          AND sys_role.del_flag = 0
+          AND sys_role.`status` = 0
+    </select>
 </mapper>
